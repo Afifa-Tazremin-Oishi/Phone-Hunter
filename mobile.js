@@ -12,7 +12,7 @@ const loadData = () => {
     input.value = "";
     //error handling
     if (inputValue === "" || !isNaN(inputValue)) {
-        errorMsg.innerText = "! please search by phone name"
+        errorMsg.innerText = "! Please search by phone name";
     }
     else {
         //fetch phone data
@@ -33,7 +33,7 @@ const displayPhone = (phones) => {
     showPhone.textContent = "";
     //error handling
     if (phones.length === 0) {
-        errorMsg.innerText = "! please input valid phone name"
+        errorMsg.innerText = "! Please input valid phone name"
         loading("none");
     }
     else {

@@ -11,9 +11,7 @@
     <link rel="stylesheet" href="style.css" />
 </head>
 
-<body>
-
-    <body>
+    <body style="background-color: rgb(201, 235, 248);">
         <section id="displayPhone">
             <!---------------phone title ------------------->
             <div class="phone_title">
@@ -21,17 +19,12 @@
             </div>
 
             <!---------------search area------------------->
-            <div id="search-bar" class="input-group mb-3 w-50 mx-auto">
-                <input id="inputField" type="text" class="form-control" placeholder="Search Your Phone"
-                    aria-label="Recipient's username" aria-describedby="basic-addon2" />
-                <div class="input-group-append">
-                    <button class="btn btn-outline-dark" type="button" onclick="loadData()">
-                        Search
-                    </button>
-                    <br>
-                    
-                </div>
+            <div class="input-group px-2 w-50 mx-auto">
+                <input id="inputField" type="text" class="form-control" placeholder="Search the phone you want"
+                    aria-describedby="button-addon2">
+                <button class="btn btn-outline-secondary" type="button" onclick="loadData()">Search</button>
             </div>
+
             <div id="error_msg" class="text-center align-items-center text-danger fw-bold">
 
             </div>
@@ -39,7 +32,7 @@
             <!---------------search title ------------------->
 
             <!---------------info  ------------------->
-            <div id="display_info" class="w-50 mx-auto">
+            <div id="display_info" class="w-75 mx-auto my-5 ">
 
             </div>
             <!---------------info  ------------------->
@@ -60,6 +53,6 @@
 
         <script src="mobile.js"></script>
     </body>
-</body>
+
 
 </html>

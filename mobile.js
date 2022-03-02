@@ -41,10 +41,10 @@ const displayPhone = (phones) => {
             const div = document.createElement("div");
             div.classList.add("phone_items");
             div.innerHTML = `
-    <div class="row card-phn px-2" >
-      <div class="col-sm-12 ">
+    <div class="row card-phn px-3" >
+      <div class="col-sm-12 col-md-12 ">
        <div class="card ">
-        <div class="card-body card-size">
+        <div class="card-body p-5 card-size">
         <img class="phone-img" src="${phone.image}">
         <h3>Name : ${phone.phone_name} </h3> 
         <h3>Brand : ${phone.brand}</h3>
@@ -59,7 +59,7 @@ const displayPhone = (phones) => {
             showPhone.appendChild(div);
         });
         loading("none");
-        // seeDetails.style.display = "block";
+        //seeDetails.style.display = "block";
     }
 }
 
@@ -80,7 +80,7 @@ const displayInfo = (explore) => {
     div.innerHTML = `
  
         <div class="row card-phn">
-  <div class="col-sm-6">
+  <div class="col-sm-12 ">
     <div class="card">
       <div class="card-body">
       <img src="${explore.image}">

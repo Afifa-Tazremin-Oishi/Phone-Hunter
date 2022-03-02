@@ -1,73 +1,110 @@
-document.getElementById('error-message').style.display = 'none'    
-
-const searchPhone = () => {
-    const searchField = document.getElementById('search-field');
-    const searchText = searchField.value ;
-    console.log(searchText);
-    //clear data
-    searchField.value = '';
-    document.getElementById('error-message').style.display = 'none';  
-
-    if(searchText == ''){
-      // please write something to display
+//adding spinner
+const loading = (progress) => {
+    document.getElementById("spinner").style.display = progress;
+}
+// start js
+// load phone data
+const loadData = () => {
+    const input = document.getElementById("inputField");
+    const errorMsg = document.getElementById("error_msg");
+    const inputValue = input.value;
+    //clear input
+    input.value = "";
+    //error handling
+    if (inputValue === "" || !isNaN(inputValue)) {
+        errorMsg.innerText = "! please search by phone name"
     }
-    else{
-    //load data
-    const url = ` https://openapi.programming-hero.com/api/phones?search=${searchText}`
-    fetch(url)
-    .then(res => res.json())
-    .then(data => displaySearchResult(data.data))
-    .catch(error => displayError(error));
-    } 
-}
-const displayError = error => {
-  document.getElementById('error-message').style.display = 'block';    
-
-}
-
-const displaySearchResult = products => {
-    const searchResult = document.getElementById('search-result');
-    searchResult.textContent = '';
-    if(products.length == 0){
-      // No result found
+    else {
+        //fetch phone data
+        const url = `https://openapi.programming-hero.com/api/phones?search=${inputValue}`;
+        fetch(url)
+            .then(res => res.json())
+            .then(data => displayPhone(data.data.slice(0, 20)))
+        errorMsg.innerText = "";
+        loading("block");
     }
-    products.forEach(product =>{
-        //console.log(meals);
-        const div = document.createElement('div');
-        div.classList.add('col');
-        div.innerHTML = `
-          <div onclick="loadMealDetail(${meals.idMeal})" class="card h-100">
-            <img src="${product.image}" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">${product.slug}</h5>
-              <p class="card-text">${meals.strInstructions.slice(0, 250)}</p>
-            </div>
-          </div>
-        `;
-        searchResult.appendChild(div);
-    })
 }
 
-const loadMealDetail = mealId => {
-    //console.log(mealId);
-    const url = `https://openapi.programming-hero.com/api/phone/${id}`;
+// display phone data
+const displayPhone = (phones) => {
+    const showPhone = document.getElementById("display_phone");
+    const seeDetails = document.getElementById("showAll");
+    const errorMsg = document.getElementById("error_msg");
+    showPhone.textContent = "";
+    //error handling
+    if (phones.length === 0) {
+        errorMsg.innerText = "! please input valid phone name"
+        loading("none");
+    }
+    else {
+        phones.forEach(phone => {
+            const div = document.createElement("div");
+            div.classList.add("phone_items");
+            div.innerHTML = `
+        <div class="row card-phn p-2" >
+  <div class="col-sm-6 ">
+    <div class="card ">
+      <div class="card-body card-size">
+      <img class="phone-img" src="${phone.image}">
+      <h3>Name : ${phone.phone_name} </h3> 
+      <h3>Brand : ${phone.brand}</h3>
+      <button class="btn btn-outline-dark" onclick="phoneDetails('${phone.slug}')">More-Info</button>
+    
+      </div>
+    </div>
+  </div>
+  
+</div>
+        `
+            showPhone.appendChild(div);
+        });
+        loading("none");
+        // seeDetails.style.display = "block";
+    }
+}
+
+// load phone details
+const phoneDetails = (phoneId) => {
+    const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`;
     fetch(url)
-    .then(res => res.json())
-    .then(data => displayMealDetail(data.meals[0]));
+        .then(res => res.json())
+        .then(data => displayInfo(data.data))
+    loading("block")
 }
-
-const displayMealDetail = meals => {
-    console.log(meals);
-    const mealDetails = document.getElementById('meal-details')
-    const div = document.createElement('div');
-    div.classList.add('card');
+// display phone details
+const displayInfo = (explore) => {
+    const more_info = document.getElementById("display_info");
+    more_info.textContent = "";
+    const div = document.createElement("div");
+    div.classList.add("infos");
     div.innerHTML = `
-    <img src="${meals.strMealThumb}" class="card-img-top" alt="...">
-        <div class="card-body">
-          <h5 class="card-title">${meals.strMeal}</h5>
-          <p class="card-text">${meals.strInstructions.slice(0, 250)}</p>
-          <a href="${meals.strYoutube}" class="btn btn-primary">Go somewhere</a>
-        </div>
-    `;
-    mealDetails.appendChild(div);
+ 
+        <div class="row card-phn">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+      <img src="${explore.image}">
+      <h3>Name : </h3>${explore.name}
+      <h3>Release Date : </h3>${explore.releaseDate ? explore.releaseDate : "Not Found"}
+     <h3>Features :</h3><p>ChipSet : ${explore.mainFeatures.chipSet}</p>
+                            <p>DisplaySize : ${explore.mainFeatures.displaySize}</p> 
+                            <p>Memory : ${explore.mainFeatures.memory}</p> 
+             <h3>Sensors :</h3>${explore.mainFeatures.sensors}
+             <h3>Others :</h3> 
+             <p>Bluetooth : ${explore?.others?.Bluetooth ? explore.others?.Bluetooth : "Not Available"}</p>
+             <p>GPS : ${explore?.others?.GPS ? explore?.others?.GPS : "Not Available"}</p>
+             <p>NFC : ${explore?.others?.NFC ? explore?.others?.NFC : "Not Available"}</p>
+             <p>Radio : ${explore?.others?.Radio ? explore?.others?.Radio : "Not Available"}</p>
+             <p>USB : ${explore?.others?.USB ? explore?.others?.USB : "Not Available"}</p>
+             <p>WLAN : ${explore?.others?.WLAN ? explore?.others?.WLAN : "Not Available"}</p>
+     
+      </div>
+    </div>
+  </div>
+  
+</div>
+        
+ `
+    more_info.appendChild(div);
+    loading("none");
 }

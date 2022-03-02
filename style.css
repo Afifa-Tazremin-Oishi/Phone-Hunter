@@ -1,0 +1,17 @@
+#spinner {
+    display: none;
+    text-align: center;
+    font-size: 22px;
+    font-family: "Noto Serif", serif;
+    font-weight: 700;
+  }
+  #search-bar {
+    margin-left: 28%;
+  }
+  
+  .card-phn {
+    margin-left: 36%;
+  }
+  .card-size {
+    margin-left: 15%;
+  }

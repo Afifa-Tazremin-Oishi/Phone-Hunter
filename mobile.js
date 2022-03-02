@@ -41,20 +41,20 @@ const displayPhone = (phones) => {
             const div = document.createElement("div");
             div.classList.add("phone_items");
             div.innerHTML = `
-        <div class="row card-phn p-2" >
-  <div class="col-sm-6 ">
-    <div class="card ">
-      <div class="card-body card-size">
-      <img class="phone-img" src="${phone.image}">
-      <h3>Name : ${phone.phone_name} </h3> 
-      <h3>Brand : ${phone.brand}</h3>
-      <button class="btn btn-outline-dark" onclick="phoneDetails('${phone.slug}')">More-Info</button>
+    <div class="row card-phn px-2" >
+      <div class="col-sm-12 ">
+       <div class="card ">
+        <div class="card-body card-size">
+        <img class="phone-img" src="${phone.image}">
+        <h3>Name : ${phone.phone_name} </h3> 
+        <h3>Brand : ${phone.brand}</h3>
+        <button class="btn btn-outline-dark" onclick="phoneDetails('${phone.slug}')" >More-Info</button>
     
+        </div>
+       </div>
       </div>
-    </div>
-  </div>
   
-</div>
+   </div>
         `
             showPhone.appendChild(div);
         });

@@ -2,11 +2,11 @@
 const loading = (progress) => {
     document.getElementById("spinner").style.display = progress;
 }
-// start js
+
 // load phone data
 const loadData = () => {
     const input = document.getElementById("inputField");
-    const errorMsg = document.getElementById("error_msg");
+    const errorMsg = document.getElementById("show-error");
     const inputValue = input.value;
     //clear input
     input.value = "";
@@ -27,9 +27,9 @@ const loadData = () => {
 
 // display phone data
 const displayPhone = (phones) => {
-    const showPhone = document.getElementById("display_phone");
+    const showPhone = document.getElementById("display-phone");
     const seeDetails = document.getElementById("showAll");
-    const errorMsg = document.getElementById("error_msg");
+    const errorMsg = document.getElementById("show-error");
     showPhone.textContent = "";
     //error handling
     if (phones.length === 0) {
@@ -46,8 +46,8 @@ const displayPhone = (phones) => {
        <div class="card ">
         <div class="card-body p-5 card-size">
         <img class="phone-img" src="${phone.image}">
-        <h3>Name : ${phone.phone_name} </h3> 
-        <h3>Brand : ${phone.brand}</h3>
+        <h4>Name : ${phone.phone_name} </h4> 
+        <h4>Brand : ${phone.brand}</h4>
         <button class="btn btn-outline-dark" onclick="phoneDetails('${phone.slug}')" >More-Info</button>
     
         </div>
@@ -56,7 +56,7 @@ const displayPhone = (phones) => {
   
    </div>
         `
-            showPhone.appendChild(div);
+        showPhone.appendChild(div);
         });
         loading("none");
         //seeDetails.style.display = "block";
@@ -73,7 +73,7 @@ const phoneDetails = (phoneId) => {
 }
 // display phone details
 const displayInfo = (explore) => {
-    const more_info = document.getElementById("display_info");
+    const more_info = document.getElementById("display-info");
     more_info.textContent = "";
     const div = document.createElement("div");
     div.classList.add("infos");
@@ -84,13 +84,13 @@ const displayInfo = (explore) => {
     <div class="card">
       <div class="card-body">
       <img src="${explore.image}">
-      <h3>Name : </h3>${explore.name}
-      <h3>Release Date : </h3>${explore.releaseDate ? explore.releaseDate : "Not Found"}
+      <h4>Name : </h4>${explore.name}
+      <h4>Release Date : </h4>${explore.releaseDate ? explore.releaseDate : "Not Found"}
      <h3>Features :</h3><p>ChipSet : ${explore.mainFeatures.chipSet}</p>
                             <p>DisplaySize : ${explore.mainFeatures.displaySize}</p> 
                             <p>Memory : ${explore.mainFeatures.memory}</p> 
-             <h3>Sensors :</h3>${explore.mainFeatures.sensors}
-             <h3>Others :</h3> 
+             <h4>Sensors :</h4>${explore.mainFeatures.sensors}
+             <h4>Others :</h4> 
              <p>Bluetooth : ${explore?.others?.Bluetooth ? explore.others?.Bluetooth : "Not Available"}</p>
              <p>GPS : ${explore?.others?.GPS ? explore?.others?.GPS : "Not Available"}</p>
              <p>NFC : ${explore?.others?.NFC ? explore?.others?.NFC : "Not Available"}</p>
